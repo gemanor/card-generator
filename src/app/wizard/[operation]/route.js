@@ -3,7 +3,7 @@ import path from "path";
 import getConfig from "next/config";
 import fs from "fs";
 import FormData from "form-data";
-import { PassThrough, Readable } from "stream";
+import { Readable } from "stream";
 import { NextResponse } from "next/server";
 
 const serverPath = (staticFilePath) => {
@@ -24,10 +24,7 @@ const imageToStream = (base64Image) => {
 };
 
 const swap = async (role, face) => {
-  const randomAvatar = serverPath(
-    `public/avatars/${role}/${Math.floor(Math.random() * 4) + 1}.png`
-  );
-  const avatar = fs.createReadStream(randomAvatar);
+  const avatar = fs.createReadStream(`${process.cwd()}/public/avatars/${role}/${Math.floor(Math.random() * 4) + 1}.png`);
   const form = new FormData();
   form.append("target_image", avatar);
   form.append("swap_image", Buffer.from(face.split(",")[1], "base64"), {
@@ -76,6 +73,7 @@ const swap = async (role, face) => {
     return checkJob();
   };
   const job = await checkJob();
+  
   return job;
 };
 
