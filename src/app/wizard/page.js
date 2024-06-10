@@ -242,7 +242,7 @@ export default function Wizard() {
                         alt="Face recognition"
                         width={480}
                         height={480}
-                        className="absolute z-30 opacity-85 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                        className="absolute z-30 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                       />
                       <Webcam
                         audio={false}
