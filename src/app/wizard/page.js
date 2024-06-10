@@ -89,6 +89,7 @@ export default function Wizard() {
   const [card, setCard] = useState(null);
   const [deviceId, setDeviceId] = useState("");
   const [devices, setDevices] = useState([]);
+  const [active, setActive] = useState(false);
   const webcamRef = useRef(null);
 
   const capture = useCallback(async () => {
@@ -146,6 +147,7 @@ export default function Wizard() {
   ];
 
   const handleNextStep = async () => {
+    setActive(true);
     const nextStep = step + 1;
     if (steps[step].callback) {
       await steps[step].callback();
@@ -153,6 +155,7 @@ export default function Wizard() {
     if (steps[step].validator && !steps[step].validator()) {
       return;
     }
+    setActive(false);
     setStep(nextStep);
   };
 
@@ -293,13 +296,11 @@ export default function Wizard() {
             )}
             {/* <Separator className="mx-3" /> */}
             <div className="py-2 flex flex-row items-end justify-end gap-2">
-              {step > 0 && (
-                <Button onClick={handlePreviousStep}>Previous</Button>
+              {step > 0 && step < 3 && (
+                <Button disabled={active} onClick={handlePreviousStep}>Previous</Button>
               )}
-              {step < 4 ? (
-                <Button onClick={handleNextStep}>Next</Button>
-              ) : (
-                <Button disabled={!title || !picture}>Finish</Button>
+              {step < 3 && (
+                <Button disabled={active} onClick={handleNextStep}>Next</Button>
               )}
             </div>
           </WindowContent>
