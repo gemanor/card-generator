@@ -1,3 +1,6 @@
+export const maxDuration = 25; // This function can run for a maximum of 5 seconds
+export const dynamic = 'force-dynamic';
+
 import fetch from "node-fetch";
 import path from "path";
 import getConfig from "next/config";
@@ -79,7 +82,6 @@ const swap = async (role, face) => {
 
 export async function POST(request, context) {
   const { operation } = context.params;
-  const { body } = request;
   if (operation === "swap") {
     const { face, role } = await request.json();
     const result = await swap(role, face);
