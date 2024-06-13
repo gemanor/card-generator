@@ -43,32 +43,28 @@ export default function Page() {
             >
               Download
             </Button>
-            {window.navigator.share && (
-              <Button
-                onClick={async () => {
-                  shareOnMobile({
-                    title: "Share your card",
-                    text: "#RenderATL @permit_io",
-                    images: [card],
-                  });
-                }}
-              >
-                Twitter
-              </Button>
-            )}
-            {window.navigator.share && (
-              <Button
-                onClick={async () => {
-                  shareOnMobile({
-                    title: "Share your card",
-                    text: "Check out my #UltimateCheck card from Permit.io #RenderATL",
-                    images: [card],
-                  });
-                }}
-              >
-                LinkedIn
-              </Button>
-            )}
+            <Button
+              onClick={async () => {
+                shareOnMobile({
+                  title: "Share your card",
+                  text: "#RenderATL @permit_io",
+                  images: [card],
+                });
+              }}
+            >
+              Twitter
+            </Button>
+            <Button
+              onClick={async () => {
+                shareOnMobile({
+                  title: "Share your card",
+                  text: "Check out my #UltimateCheck card from Permit.io #RenderATL",
+                  images: [card],
+                });
+              }}
+            >
+              LinkedIn
+            </Button>
           </div>
           <Window>
             {card && <Image src={card} height={600} width={400} alt="card" />}
