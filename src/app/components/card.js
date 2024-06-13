@@ -7,6 +7,8 @@ import { toPng } from "html-to-image";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const blackTextRoles = ['marketing', 'devrel'];
+
 export default function Card({ role, name, avatar, onCard }) {
   const cardRef = useRef(null);
   const [loaded, setLoaded] = useState(0);
@@ -14,11 +16,7 @@ export default function Card({ role, name, avatar, onCard }) {
 
   useEffect(() => {
     const capture = async () => {
-      const dataUrl = await toPng(cardRef.current);
-      const a = document.createElement("a");
-      a.href = dataUrl;
-      a.download = "card.png";
-      a.click();
+      const dataUrl = await toPng(cardRef.current, { quality: 1, pixelRatio: 1 });
       onCard(dataUrl);
       setCard(dataUrl);
     };
@@ -59,13 +57,11 @@ export default function Card({ role, name, avatar, onCard }) {
             className="relative"
           />
           <div
-            className="absolute text-left text-white text-5xl font-light"
+            className={`absolute text-left text-${blackTextRoles.includes(role) ? 'black' : 'white'} text-5xl font-normal`}
             style={{
-              whiteSpace: "nowrap",
               width: "760px",
               top: "130px",
               left: "150px",
-              overflow: "hidden",
             }}
           >
             {name}

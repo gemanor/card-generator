@@ -22,6 +22,7 @@ import { call } from "file-loader";
 import Card from "../components/card";
 import Image from "next/image";
 import CameraBar from "./ProgressBar";
+import QRCode from "react-qr-code";
 
 const roles = [
   {
@@ -126,7 +127,7 @@ export default function Wizard() {
   }, [handleDevices]);
 
   const nameValidator = useCallback(() => {
-    return name.length > 0;
+    return name.length > 0 && name.length < 25;
   }, [name]);
 
   const roleValidator = useCallback(() => {
@@ -275,10 +276,55 @@ export default function Wizard() {
               <>
                 {avatar && (
                   <div className="overflow-hidden" style={{ height: "600px" }}>
-                    <div className="flex justify-center items-center h-full">
+                    <div className="flex justify-center items-start h-full gap-4">
                       {!card && <Hourglass />}
                       {card && (
-                        <Image src={card} alt="card" height={600} width={400} />
+                        <>
+                          <Image
+                            src={card}
+                            alt="card"
+                            height={600}
+                            width={400}
+                          />
+                          <div className="flex flex-col items-start justify-center">
+                            <p className="p-2">
+                              Looking for a future-proof digital copy of this
+                              card? Scan this code!
+                            </p>
+                            <Frame variant="inside" className="p-4">
+                              <QRCode
+                                size={140}
+                                bgColor="#c6c6c6"
+                                value={`https://ultimatecheck.vercel.app/card?name=${name}&role=${role}&avatar=${avatar}`}
+                              />
+                            </Frame>
+                            <Separator className="!my-4" />
+                            <p className="py-2">Prefer the old school way?</p>
+                            <Button
+                              onClick={() => {
+                                const a = document.createElement("a");
+                                a.href = card;
+                                a.download = "card.png";
+                                a.click();
+                              }}
+                              fullWidth
+                              size="lg"
+                            >
+                              🖨️ Print this Card!
+                            </Button>
+                            <Separator className="!my-4" />
+                            <p className="py-2">Unhappy with the result?</p>
+                            <Button
+                              onClick={() => {
+                                window.location.reload();
+                              }}
+                              size="lg"
+                              fullWidth
+                            >
+                              Retry!
+                            </Button>
+                          </div>
+                        </>
                       )}
                     </div>
                     <Card
@@ -291,16 +337,35 @@ export default function Wizard() {
                     />
                   </div>
                 )}
-                {!avatar && <Hourglass />}
+                {!avatar && (
+                  <>
+                    <p className="py-2 text-center">
+                      Something bad happen somewhere and the AI of the future failed to create your card.
+                    </p>
+                    <div className="py-2 flex flex-row items-center justify-center gap-2">
+                      <Button
+                        onClick={() => {
+                          window.location.reload();
+                        }}
+                      >
+                        Try again!
+                      </Button>
+                    </div>
+                  </>
+                )}
               </>
             )}
             {/* <Separator className="mx-3" /> */}
             <div className="py-2 flex flex-row items-end justify-end gap-2">
               {step > 0 && step < 3 && (
-                <Button disabled={active} onClick={handlePreviousStep}>Previous</Button>
+                <Button disabled={active} onClick={handlePreviousStep}>
+                  Previous
+                </Button>
               )}
               {step < 3 && (
-                <Button disabled={active} onClick={handleNextStep}>Next</Button>
+                <Button disabled={active} onClick={handleNextStep}>
+                  Next
+                </Button>
               )}
             </div>
           </WindowContent>

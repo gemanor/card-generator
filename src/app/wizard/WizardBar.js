@@ -20,9 +20,20 @@ export default function WizardBar() {
           <Button
             onClick={() => setOpen(!open)}
             active={open}
-            style={{ fontWeight: "bold", verticalAlign: "middle", display: "flex", alignItems: "center"}}
+            style={{
+              fontWeight: "bold",
+              verticalAlign: "middle",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
-            <Image src="/logo.svg" alt="permit logo" width={24} height={24} style={{paddingRight: '8px'}} />
+            <Image
+              src="/logo.svg"
+              alt="permit logo"
+              width={24}
+              height={24}
+              style={{ paddingRight: "8px" }}
+            />
             Start
           </Button>
           {open && (
@@ -35,16 +46,16 @@ export default function WizardBar() {
               onClick={() => setOpen(false)}
             >
               <MenuListItem>
-                <span role="img" aria-label="👨‍💻">
-                  👨‍💻
+                <span role="img" aria-label="🌟">
+                  🌟
                 </span>
-                Profile
+                Star Us on GitHub
               </MenuListItem>
               <MenuListItem>
-                <span role="img" aria-label="📁">
-                  📁
+                <span role="img" aria-label="🎙️">
+                  🎙️
                 </span>
-                My account
+                Subscribe our Livestreams Calendar
               </MenuListItem>
               <Separator />
               <MenuListItem disabled>
