@@ -154,7 +154,7 @@ export default function Wizard() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between">
+    <div className="flex min-h-screen flex-col items-center justify-between bg-[#008080]">
       <WizardBar />
       <div className="flex items-center justify-center" style={{width: "1280px", height: "1024px", paddingTop: "54px" }}>
         <Window style={{ width: "640px" }}>
