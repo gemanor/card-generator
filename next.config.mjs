@@ -20,6 +20,9 @@ const nextConfig = {
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname,
   },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.woff(2)?$/,

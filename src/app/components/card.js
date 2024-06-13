@@ -11,7 +11,8 @@ const blackTextRoles = ['marketing', 'devrel'];
 
 export default function Card({ role, name, avatar, onCard }) {
   const cardRef = useRef(null);
-  const [loaded, setLoaded] = useState(0);
+  const [avatarLoaded, setAvatarLoaded] = useState(false);
+  const [roleLoaded, setRoleLoaded] = useState(false);
   const [card, setCard] = useState(null);
 
   useEffect(() => {
@@ -20,10 +21,10 @@ export default function Card({ role, name, avatar, onCard }) {
       onCard(dataUrl);
       setCard(dataUrl);
     };
-    if (loaded == 2 && !card) {
+    if (roleLoaded && avatarLoaded && !card) {
       capture();
     }
-  }, [cardRef, loaded, onCard, card]);
+  }, [cardRef, roleLoaded, avatarLoaded, onCard, card]);
 
   return (
     <>
@@ -40,28 +41,27 @@ export default function Card({ role, name, avatar, onCard }) {
             width={970}
             height={1600}
             alt="background"
-            onLoad={(e) => {
-              setLoaded(loaded + 1);
-            }}
             className="absolute"
+            onLoad={() => setAvatarLoaded(true)}
             style={{ top: "220px", left: "50%", transform: "translateX(-50%)" }}
+            priority={1}
           />
           <Image
             src={`/cards/${role}.png`}
             alt={role}
             width={1200}
-            onLoad={(e) => {
-              setLoaded(loaded + 1);
-            }}
             height={1800}
+            onLoad={() => setRoleLoaded(true)}
             className="relative"
+            priority={1}
           />
           <div
-            className={`absolute text-left text-${blackTextRoles.includes(role) ? 'black' : 'white'} text-5xl font-normal`}
+            className={`absolute text-left text-5xl font-normal`}
             style={{
               width: "760px",
               top: "130px",
               left: "150px",
+              color: blackTextRoles.includes(role) ? "black" : "white",
             }}
           >
             {name}

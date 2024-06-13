@@ -2,9 +2,13 @@
 
 import { useSearchParams } from "next/navigation";
 import Card from "../components/card";
+import { Suspense, useState } from "react";
+import { TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
+import Image from "next/image";
 
 export default function Page() {
   const searchParams = useSearchParams();
+  const [card, setCard] = useState(null);
 
   const role = searchParams.get("role");
   const name = searchParams.get("name");
@@ -21,12 +25,22 @@ export default function Page() {
         </>
       ) : (
         <>
+          {/* {card && ( */}
+          <div className="flex justify-center">
+            <TwitterShareButton url="http://www.google.com">
+                <TwitterIcon />
+            </TwitterShareButton>
+            <WhatsappShareButton url={card}>
+                <WhatsappIcon />
+            </WhatsappShareButton>
+          </div>
+          {/* )} */}
           <Card
             role={role}
             name={name}
             avatar={avatar}
             onCard={(dataUrl) => {
-              console.log(dataUrl);
+              setCard(dataUrl);
             }}
           />
         </>
