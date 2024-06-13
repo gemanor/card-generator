@@ -2,17 +2,11 @@
 
 import { useSearchParams } from "next/navigation";
 import Card from "../components/card";
-import { Suspense, useState } from "react";
-import {
-  TwitterIcon,
-  TwitterShareButton,
-  WhatsappIcon,
-  WhatsappShareButton,
-} from "react-share";
+import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { Button, Window } from "react95";
-import { toJpeg } from "html-to-image";
+import { shareOnMobile } from "react-mobile-share";
 
 const Main = styled.div`
   background: ${({ theme }) => theme.desktopBackground};
@@ -37,7 +31,7 @@ export default function Page() {
         </>
       ) : (
         <>
-          <div className="flex justify-center py-2">
+          <div className="flex justify-center py-2 gap-2">
             <Button
               onClick={() => {
                 const a = document.createElement("a");
@@ -49,6 +43,32 @@ export default function Page() {
             >
               Download
             </Button>
+            {window.navigator.share && (
+              <Button
+                onClick={async () => {
+                  shareOnMobile({
+                    title: "Share your card",
+                    text: "#RenderATL @permit_io",
+                    images: [card],
+                  });
+                }}
+              >
+                Twitter
+              </Button>
+            )}
+            {window.navigator.share && (
+              <Button
+                onClick={async () => {
+                  shareOnMobile({
+                    title: "Share your card",
+                    text: "Check out my #UltimateCheck card from Permit.io #RenderATL",
+                    images: [card],
+                  });
+                }}
+              >
+                LinkedIn
+              </Button>
+            )}
           </div>
           <Window>
             {card && <Image src={card} height={600} width={400} alt="card" />}
