@@ -276,7 +276,11 @@ export default function Wizard() {
               <>
                 {avatar && (
                   <div className="overflow-hidden" style={{ height: "600px" }}>
-                    <div className="flex justify-center items-start h-full gap-4">
+                    <div
+                      className={`flex justify-center items-${
+                        !card ? "center" : "start"
+                      } h-full gap-4`}
+                    >
                       {!card && <Hourglass />}
                       {card && (
                         <>
@@ -340,7 +344,8 @@ export default function Wizard() {
                 {!avatar && (
                   <>
                     <p className="py-2 text-center">
-                      Something bad happen somewhere and the AI of the future failed to create your card.
+                      Something bad happen somewhere and the AI of the future
+                      failed to create your card.
                     </p>
                     <div className="py-2 flex flex-row items-center justify-center gap-2">
                       <Button

@@ -17,8 +17,8 @@
     "npm": "^10.8.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-mobile-share": "^1.0.31",
     "react-qr-code": "^2.0.14",
-    "react-share": "^5.1.0",
     "react-webcam": "^7.2.0",
     "react95": "^4.0.0",
     "styled-components": "^6.1.11"
