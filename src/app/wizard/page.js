@@ -15,7 +15,6 @@ import {
   WindowHeader,
 } from "react95";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import WizardBar from "./WizardBar";
 import Webcam from "react-webcam";
 import { call } from "file-loader";
@@ -70,16 +69,6 @@ const roles = [
     label: "Security Engineer",
   },
 ];
-
-const Main = styled.div`
-  background: ${({ theme }) => theme.desktopBackground};
-`;
-
-const Wrapper = styled.div`
-  width: 1280px;
-  height: 1024px;
-  padding-top: 54px;
-`;
 
 export default function Wizard() {
   const [name, setName] = useState("");
@@ -165,9 +154,9 @@ export default function Wizard() {
   };
 
   return (
-    <Main className="flex min-h-screen flex-col items-center justify-between">
+    <div className="flex min-h-screen flex-col items-center justify-between">
       <WizardBar />
-      <Wrapper className="flex items-center justify-center">
+      <div className="flex items-center justify-center" style={{width: "1280px", height: "1024px", paddingTop: "54px" }}>
         <Window style={{ width: "640px" }}>
           <WindowHeader>Card Creator Wizard!</WindowHeader>
           <WindowContent>
@@ -299,7 +288,7 @@ export default function Wizard() {
                               <QRCode
                                 size={140}
                                 bgColor="#c6c6c6"
-                                value={`https://ultimatecheck.vercel.app/card?name=${name}&role=${role}&avatar=${avatar}`}
+                                value={`https://ultimate-check.vercel.app/card?name=${name}&role=${role}&avatar=${avatar}`}
                               />
                             </Frame>
                             <Separator className="!my-4" />
@@ -375,7 +364,7 @@ export default function Wizard() {
             </div>
           </WindowContent>
         </Window>
-      </Wrapper>
-    </Main>
+      </div>
+    </div>
   );
 }
