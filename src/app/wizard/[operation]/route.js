@@ -70,6 +70,7 @@ const swap = async (role, face) => {
     );
     const response = await job.json();
     const { code } = response;
+    console.log('code', code, counter);
     if (code !== 300102 || counter > 10) {
       return response;
     }
