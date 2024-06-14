@@ -147,6 +147,7 @@ export default function Wizard() {
       await steps[step].callback();
     }
     if (steps[step].validator && !steps[step].validator()) {
+      setActive(false);
       return;
     }
     setActive(false);
@@ -161,9 +162,12 @@ export default function Wizard() {
     <div className="flex min-h-screen flex-col items-center justify-between bg-[#008080]">
       <WizardBar />
       <div
-        className="flex items-center justify-center"
+        className="flex items-center justify-center flex-col gap-6"
         style={{ width: "1280px", height: "1024px", paddingTop: "54px" }}
       >
+        {step === 0 && (
+          <p className="p-10 text-6xl">Get a Custom Ultimate Check Card</p>
+        )}
         <Window style={{ width: "640px" }}>
           <WindowHeader>Card Creator Wizard!</WindowHeader>
           <WindowContent>
@@ -173,7 +177,9 @@ export default function Wizard() {
                   This wizard will help you to create your own card for the
                   Ultimate Check game.
                 </p>
-                <p className="py-2">To begin, please enter your name and email below.</p>
+                <p className="py-2">
+                  To begin, please enter your name and email below.
+                </p>
                 <div className="py-2">
                   <TextInput
                     placeholder="Enter your name..."
