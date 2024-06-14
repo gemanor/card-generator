@@ -17,7 +17,6 @@ import {
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import WizardBar from "./WizardBar";
 import Webcam from "react-webcam";
-import { call } from "file-loader";
 import Card from "../components/card";
 import Image from "next/image";
 import CameraBar from "./ProgressBar";
@@ -72,6 +71,7 @@ const roles = [
 
 export default function Wizard() {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [picture, setPicture] = useState(null);
   const [role, setRole] = useState("fullstack");
   const [avatar, setAvatar] = useState("");
@@ -116,8 +116,12 @@ export default function Wizard() {
   }, [handleDevices]);
 
   const nameValidator = useCallback(() => {
-    return name.length > 0 && name.length < 25;
-  }, [name]);
+    const validName = name.length > 0 && name.length < 25;
+    const validEmail =
+      email.length > 0 &&
+      email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/);
+    return validName && validEmail;
+  }, [name, email]);
 
   const roleValidator = useCallback(() => {
     return role.length > 0;
@@ -156,7 +160,10 @@ export default function Wizard() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between bg-[#008080]">
       <WizardBar />
-      <div className="flex items-center justify-center" style={{width: "1280px", height: "1024px", paddingTop: "54px" }}>
+      <div
+        className="flex items-center justify-center"
+        style={{ width: "1280px", height: "1024px", paddingTop: "54px" }}
+      >
         <Window style={{ width: "640px" }}>
           <WindowHeader>Card Creator Wizard!</WindowHeader>
           <WindowContent>
@@ -166,12 +173,20 @@ export default function Wizard() {
                   This wizard will help you to create your own card for the
                   Ultimate Check game.
                 </p>
-                <p className="py-2">To begin, please enter your name below.</p>
+                <p className="py-2">To begin, please enter your name and email below.</p>
                 <div className="py-2">
                   <TextInput
                     placeholder="Enter your name..."
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="before:box-content"
+                  />
+                </div>
+                <div className="py-2">
+                  <TextInput
+                    placeholder="Enter your email (so we can send you some updates)..."
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="before:box-content"
                   />
                 </div>
@@ -247,7 +262,7 @@ export default function Wizard() {
                         }}
                       />
                     </div>
-                    <p className="py-2">
+                    <p className="py-2 hidden">
                       <GroupBox label="Camera">
                         <Select
                           options={devices}
@@ -297,7 +312,7 @@ export default function Wizard() {
                               onClick={() => {
                                 const a = document.createElement("a");
                                 a.href = card;
-                                a.download = "card.png";
+                                a.download = `${email}.png`;
                                 a.click();
                               }}
                               fullWidth
