@@ -1,4 +1,4 @@
-export const maxDuration = 25; // This function can run for a maximum of 5 seconds
+export const maxDuration = 40; // This function can run for a maximum of 5 seconds
 export const dynamic = 'force-dynamic';
 
 import fetch from "node-fetch";
