@@ -166,7 +166,7 @@ export default function Wizard() {
         style={{ width: "1280px", height: "1024px", paddingTop: "54px" }}
       >
         {step === 0 && (
-          <p className="p-10 text-6xl">Get a Custom Ultimate Check Card</p>
+          <p className="p-10 text-7xl text-white">Get a Custom Ultimate Check Card</p>
         )}
         <Window style={{ width: "640px" }}>
           <WindowHeader>Card Creator Wizard!</WindowHeader>
