@@ -67,6 +67,10 @@ const roles = [
     value: "security",
     label: "Security Engineer",
   },
+  {
+    value: "student",
+    "label": "Student"
+  }
 ];
 
 export default function Wizard() {

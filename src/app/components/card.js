@@ -7,7 +7,7 @@ import { toPng } from "html-to-image";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const blackTextRoles = ['marketing', 'devrel'];
+const blackTextRoles = ['marketing', 'devrel', 'student'];
 
 export default function Card({ role, name, avatar, onCard }) {
   const cardRef = useRef(null);
